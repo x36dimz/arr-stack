@@ -24,6 +24,7 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/London
+    mem_limit: 2g
     volumes:
       - /opt/containers/sonarr:/config
       - /mnt/plex-merged/shows:/mnt/plex-merged/shows
@@ -40,6 +41,7 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/London
+    mem_limit: 2g
     volumes:
       - /opt/containers/radarr:/config
       - /mnt/plex-merged/movies:/mnt/plex-merged/movies
