@@ -62,6 +62,8 @@ services:
     image: golift/notifiarr:latest
     container_name: notifiarr
     restart: unless-stopped
+    ports:
+      - "5454:5454"
     environment:
       - TZ=Europe/London
     volumes:
