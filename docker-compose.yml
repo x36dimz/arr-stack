@@ -72,6 +72,21 @@ services:
       - /opt/containers/notifiarr:/config
     networks: [arrnet]
 
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    restart: unless-stopped
+    environment:
+      - TZ=Etc/UTC
+    volumes:
+      - /opt/containers/bazarr:/config
+      - /mnt/plex-merged/movies:/mnt/plex-merged/movies
+      - /mnt/plex-merged/shows:/mnt/plex-merged/shows
+    ports:
+      - 6767:6767
+    networks: [arrnet]
+
+
 networks:
   arrnet:
     name: arrnet
