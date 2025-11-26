@@ -87,6 +87,20 @@ services:
     ports:
       - 6767:6767
     networks: [arrnet]
+  
+  tautulli:
+    image: lscr.io/linuxserver/tautulli:latest
+    container_name: tautulli
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    volumes:
+      - /opt/containers/tautilli:/config
+    ports:
+      - 8181:8181
+    networks: [arrnet]
+    restart: unless-stopped
 
 
 networks:
