@@ -28,7 +28,7 @@ services:
     volumes:
       - /opt/containers/sonarr:/config
       - /mnt/plex-merged/shows:/mnt/plex-merged/shows
-      - /mnt/SABNZBD:/mnt/SABNZBD
+      - /mnt/SABNZBD/downloads:/mnt/SABNZBD
     networks: [arrnet]
     depends_on: [prowlarr]
 
@@ -45,7 +45,7 @@ services:
     volumes:
       - /opt/containers/radarr:/config
       - /mnt/plex-merged/movies:/mnt/plex-merged/movies
-      - /mnt/SABNZBD:/mnt/SABNZBD
+      - /mnt/SABNZBD/downloads:/mnt/SABNZBD
     networks: [arrnet]
     depends_on: [prowlarr]
 
