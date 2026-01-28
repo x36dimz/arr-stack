@@ -1,8 +1,17 @@
 version: "3.9"
+
+x-ulimits: &default_ulimits
+  ulimits:
+    nofile:
+      soft: 65535
+      hard: 65535
+
+
 name: arr-stack
 
 services:
   prowlarr:
+    <<: *default_ulimits
     image: lscr.io/linuxserver/prowlarr:latest
     container_name: prowlarr
     restart: unless-stopped
@@ -16,6 +25,7 @@ services:
     networks: [arrnet]
 
   sonarr:
+    <<: *default_ulimits
     image: lscr.io/linuxserver/sonarr:latest
     container_name: sonarr
     restart: unless-stopped
@@ -28,11 +38,12 @@ services:
     volumes:
       - /opt/containers/sonarr:/config
       - /mnt/plex-merged/shows:/mnt/plex-merged/shows
-      - /mnt/SABNZBD/downloads:/mnt/SABNZBD
+      - /mnt/SABNZBD:/mnt/SABNZBD
     networks: [arrnet]
     depends_on: [prowlarr]
 
   radarr:
+    <<: *default_ulimits
     image: lscr.io/linuxserver/radarr:latest
     container_name: radarr
     restart: unless-stopped
@@ -45,11 +56,12 @@ services:
     volumes:
       - /opt/containers/radarr:/config
       - /mnt/plex-merged/movies:/mnt/plex-merged/movies
-      - /mnt/SABNZBD/downloads:/mnt/SABNZBD
+      - /mnt/SABNZBD:/mnt/SABNZBD
     networks: [arrnet]
     depends_on: [prowlarr]
 
   overseerr:
+    <<: *default_ulimits
     image: sctx/overseerr:latest
     container_name: overseerr
     restart: unless-stopped
@@ -61,6 +73,7 @@ services:
     networks: [arrnet]
 
   notifiarr:
+    <<: *default_ulimits
     image: golift/notifiarr:latest
     container_name: notifiarr
     restart: unless-stopped
@@ -73,6 +86,7 @@ services:
     networks: [arrnet]
 
   bazarr:
+    <<: *default_ulimits
     image: lscr.io/linuxserver/bazarr:latest
     container_name: bazarr
     restart: unless-stopped
@@ -89,6 +103,7 @@ services:
     networks: [arrnet]
   
   tautulli:
+    <<: *default_ulimits
     image: lscr.io/linuxserver/tautulli:latest
     container_name: tautulli
     environment:
