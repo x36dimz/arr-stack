@@ -37,8 +37,7 @@ services:
     mem_limit: 2g
     volumes:
       - /opt/containers/sonarr:/config
-      - /mnt/plex-merged/shows:/mnt/plex-merged/shows
-      - /mnt/SABNZBD:/mnt/SABNZBD
+      - /mnt/plex/:/mnt/plex
     networks: [arrnet]
     depends_on: [prowlarr]
 
@@ -55,8 +54,7 @@ services:
     mem_limit: 2g
     volumes:
       - /opt/containers/radarr:/config
-      - /mnt/plex-merged/movies:/mnt/plex-merged/movies
-      - /mnt/SABNZBD:/mnt/SABNZBD
+      - /mnt/plex/:/mnt/plex
     networks: [arrnet]
     depends_on: [prowlarr]
 
@@ -96,8 +94,7 @@ services:
       - TZ=Etc/UTC
     volumes:
       - /opt/containers/bazarr:/config
-      - /mnt/plex-merged/movies:/mnt/plex-merged/movies
-      - /mnt/plex-merged/shows:/mnt/plex-merged/shows
+      - /mnt/plex/:/mnt/plex
     ports:
       - 6767:6767
     networks: [arrnet]
