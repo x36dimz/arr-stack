@@ -142,6 +142,7 @@ services:
     volumes:
       - /mnt/plex/Music:/app/downloads
       - /opt/containers/aurral:/app/backend/data
+    networks: [arrnet]
 
   lidarr:
     image: lscr.io/linuxserver/lidarr:latest
@@ -157,6 +158,7 @@ services:
     ports:
       - 8686:8686
     restart: unless-stopped
+    networks: [arrnet]
   
 networks:
   arrnet:
