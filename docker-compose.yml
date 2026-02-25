@@ -58,16 +58,18 @@ services:
     networks: [arrnet]
     depends_on: [prowlarr]
 
-  overseerr:
+  seerr:
     <<: *default_ulimits
-    image: sctx/overseerr:latest
-    container_name: overseerr
+    image: ghcr.io/seerr-team/seerr:latest
+    container_name: seerr
     restart: unless-stopped
     ports: ["5055:5055"]
     environment:
       - TZ=Europe/London
+      - PUID=1000
+      - PGID=1000
     volumes:
-      - /opt/containers/overseerr:/app/config
+      - /opt/containers/seerr:/app/config
     networks: [arrnet]
 
   notifiarr:
@@ -119,6 +121,7 @@ services:
     container_name: dispatcharr
     ports:
       - 9191:9191
+    mem_limit: 10g
     volumes:
       - /opt/containers/dispatcharr:/data
     environment:
@@ -128,7 +131,33 @@ services:
       - DISPATCHARR_LOG_LEVEL=info
     networks: [arrnet]
     restart: unless-stopped
+  aurral:
+    <<: *default_ulimits
+    image: ghcr.io/lklynet/aurral:latest
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    environment:
+      - DOWNLOAD_FOLDER=/mnt/plex/Music
+    volumes:
+      - /mnt/plex/Music:/app/downloads
+      - /opt/containers/aurral:/app/backend/data
 
+  lidarr:
+    image: lscr.io/linuxserver/lidarr:latest
+    container_name: lidarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    volumes:
+      - /opt/containers/lidarr/config:/config
+      - /mnt/plex/Music:/music
+      - /mnt/plex/Downloads:/downloads
+    ports:
+      - 8686:8686
+    restart: unless-stopped
+  
 networks:
   arrnet:
     name: arrnet
