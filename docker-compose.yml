@@ -159,6 +159,21 @@ services:
       - 8686:8686
     restart: unless-stopped
     networks: [arrnet]
+
+  sabnzbd:
+    image: lscr.io/linuxserver/sabnzbd:latest
+    container_name: sabnzbd
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    volumes:
+      - /opt/containers/sabnzbd/config:/config
+      - /mnt/plex/Downloads:/downloads
+    ports:
+      - 8080:8080
+    restart: unless-stopped
+    networks: [arrnet]
   
 networks:
   arrnet:
